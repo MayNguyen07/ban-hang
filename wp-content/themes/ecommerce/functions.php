@@ -142,8 +142,19 @@ add_action( 'widgets_init', 'ecommerce_widgets_init' );
 function ecommerce_scripts() {
 	wp_enqueue_style( 'ecommerce-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'ecommerce-style', 'rtl', 'replace' );
+	wp_enqueue_style( 'ecommerce', get_template_directory_uri() . '/css/common.css');
+	wp_enqueue_style( 'ecommerce-common', get_template_directory_uri() . '/css/style.css');
 
-	wp_enqueue_script( 'ecommerce-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+	// wp_enqueue_script( 'jQuery-js', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js');
+	wp_enqueue_script( 'jQuery-js', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js');
+	wp_enqueue_script( 'boostrap-js', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js');
+    wp_enqueue_style( 'boostrap-css', 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css');
+	wp_enqueue_style( 'animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css');
+	wp_enqueue_style( 'awesome-css', 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+	wp_enqueue_script( 'animate-js', 'https://cdnjs.cloudflare.com/ajax/libs/animateCSS/1.2.2/jquery.animatecss.min.js');
+    wp_enqueue_script( 'validate-js', 'http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.min.js');
+	wp_enqueue_script( 'script-js', get_template_directory_uri() . '/js/script.js', array(), _S_VERSION, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -178,3 +189,24 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+// function for admin header
+
+function my_theme_setup() {
+    add_theme_support( 'admin-bar', array( 'callback' => 'my_admin_bar_style') );
+}
+add_action( 'after_setup_theme', 'my_theme_setup' );
+
+function my_admin_bar_style() {
+?>
+<style>
+	 #header {
+			  top: 32px;
+		  }
+		  @media only screen and (max-width: 782px) {
+			#header {
+			  top: 46px ;
+		  }
+		  }  
+</style>
+<?php
+}
